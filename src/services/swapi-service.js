@@ -3,6 +3,7 @@ import axios from "axios";
 export class SwapiService {
 
     _apiBase = 'https://swapi.dev/api';
+    _baseUrlImage = 'https://starwars-visualguide.com/assets/img';
 
     async getResource(url) {
         const res = await axios(`${this._apiBase}${url}`);
@@ -45,6 +46,18 @@ export class SwapiService {
         return this._transformStarship(res);
     }
 
+    getPersonImageUrl = ({id}) => {
+        return `${this._baseUrlImage}/characters/${id}.jpg`;
+    }
+
+    getPlanetImageUrl = ({id}) => {
+        return `${this._baseUrlImage}/planets/${id}.jpg`;
+    }
+
+    getStarshipImageUrl = ({id}) => {
+        return `${this._baseUrlImage}/starships/${id}.jpg`;
+    }
+
     _extractId = (url) => {
         const idRegExp = /\/([0-9]*)\/$/;
         return url.match(idRegExp)[1];
@@ -66,7 +79,7 @@ export class SwapiService {
             name: starship.name,
             model: starship.model,
             manufacturer: starship.manufacturer,
-            costInCredits: starship.costInCredits,
+            costInCredits: starship.cost_in_credits,
             length: starship.length,
             crew: starship.crew,
             passengers: starship.passengers,
@@ -79,8 +92,9 @@ export class SwapiService {
             id: this._extractId(person.url),
             name: person.name,
             gender: person.gender,
-            birthYear: person.birthYear,
-            eyeColor: person.eyeColor
+            birthYear: person.birth_year,
+            eyeColor: person.eye_color
+
         }
     }
 }

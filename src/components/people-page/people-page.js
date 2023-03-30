@@ -1,19 +1,14 @@
 import React, { Component } from "react";
 
-import { ItemList } from "../item-list";
-import { PersonDetails } from "../person-details";
+import { PersonDetails, PersonList } from "../sw-components";
+
+import { Row } from "../row";
 
 import "./people-page.css";
-import {ErrorIndicator} from "../error-indicator";
 
 export class PeoplePage extends Component {
     state = {
-        selectedPerson: null,
-        hasError: false
-    }
-
-    componentDidCatch(error, errorInfo) {
-        this.setState({ hasError: false });
+        selectedPerson: null
     }
 
     updateSelectedPerson(id) {
@@ -23,19 +18,16 @@ export class PeoplePage extends Component {
     }
 
     render() {
-        if(this.state.hasError) {
-            return <ErrorIndicator />
-        }
+        const { selectedPerson } = this.state;
 
-        return (
-            <div className="row app mb2">
-                <div className="col-md-6">
-                    <ItemList onClickItem={ (id) => this.updateSelectedPerson(id) } />
-                </div>
-                <div className="col-md-6">
-                    <PersonDetails personId={ this.state.selectedPerson } />
-                </div>
-            </div>
+        const personList = (
+            <PersonList onClickItem={ (id) => this.updateSelectedPerson(id) }>
+                {(i) => `${i.name} ( ${i.birthYear} )`}
+            </PersonList>
         );
+
+        const personDetails = <PersonDetails itemId={ selectedPerson } />;
+
+        return <Row left={ personList } right={ personDetails }  />;
     }
 }
