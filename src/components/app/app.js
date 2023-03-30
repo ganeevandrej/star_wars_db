@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 
 import { Header } from '../header';
 import { RandomPlanet } from '../random-planet';
-import { ItemList } from '../item-list';
-import { PersonDetails } from '../person-details';
 
 import './app.css';
+import {ErrorButton} from "../error-button";
+import {ErrorIndicator} from "../error-indicator";
+import {PeoplePage} from "../people-page";
 
 export class App extends Component {
     state = {
         showRandomPlanet: true,
-        selectedPerson: null
+        hasError: false
     }
 
     toggleRandomPlanet = () => {
@@ -21,14 +22,16 @@ export class App extends Component {
         });
     };
 
-    updateSelectedPerson(id) {
-        this.setState({
-            selectedPerson: id
-        });
+    componentDidCatch(error, errorInfo) {
+        this.setState({ hasError: false });
     }
 
     render() {
         const planet = this.state.showRandomPlanet ? <RandomPlanet/> : null;
+
+        if(this.state.hasError) {
+            return <ErrorIndicator />
+        }
 
         return (
             <div>
@@ -37,20 +40,13 @@ export class App extends Component {
 
                 <div className="block-btns row mb2 button-row">
                     <button
-                        className="toggle-planet btn btn-warning btn-lg"
+                        className="toggle toggle-planet btn btn-warning btn-lg"
                         onClick={this.toggleRandomPlanet}>
                         Toggle Random Planet
                     </button>
+                    <ErrorButton />
                 </div>
-
-                <div className="row app mb2">
-                    <div className="col-md-6">
-                        <ItemList onClickItem={ (id) => this.updateSelectedPerson(id) } />
-                    </div>
-                    <div className="col-md-6">
-                        <PersonDetails personId={ this.state.selectedPerson } />
-                    </div>
-                </div>
+                <PeoplePage />
             </div>
         );
     }

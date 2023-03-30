@@ -5,6 +5,7 @@ import { Spinner } from "../spinner";
 import { SwapiService } from "../../services/swapi-service";
 
 import './person-details.css';
+import {ErrorButton} from "../error-button";
 
 export class PersonDetails extends Component {
     swapiService = new SwapiService();
@@ -80,6 +81,7 @@ const PersonView = ({ person }) => {
                         <span>{ eyeColor }</span>
                     </li>
                 </ul>
+                <ErrorButton />
             </div>
         </>
     );
