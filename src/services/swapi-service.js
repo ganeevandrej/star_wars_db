@@ -45,7 +45,7 @@ export class SwapiService {
         return this._transformStarship(res);
     }
 
-    _extractId(url) {
+    _extractId = (url) => {
         const idRegExp = /\/([0-9]*)\/$/;
         return url.match(idRegExp)[1];
     }
@@ -62,7 +62,7 @@ export class SwapiService {
 
     _transformStarship = (starship) => {
         return {
-            id: this._extractId(starship),
+            id: this._extractId(starship.url),
             name: starship.name,
             model: starship.model,
             manufacturer: starship.manufacturer,
@@ -76,7 +76,7 @@ export class SwapiService {
 
     _transformPerson = (person) => {
         return {
-            id: this._extractId(person),
+            id: this._extractId(person.url),
             name: person.name,
             gender: person.gender,
             birthYear: person.birthYear,

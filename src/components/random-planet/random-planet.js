@@ -8,19 +8,21 @@ import { SwapiService } from "../../services/swapi-service";
 import './random-planet.css';
 
 export class RandomPlanet extends Component {
-
-    constructor() {
-        super();
-        this.updatePlanet();
-    }
-
-    swapiService = new SwapiService();
-
     state = {
         planet: {},
         loading: true,
         error: false,
     }
+
+    componentDidMount() {
+        this.interval = setInterval(this.updatePlanet, 2000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    swapiService = new SwapiService();
 
     onError = () => {
         this.setState(
@@ -36,7 +38,7 @@ export class RandomPlanet extends Component {
         error: false
     });
 
-    updatePlanet() {
+    updatePlanet = () => {
         const id = Math.ceil(Math.random() * 18) + 1;
 
         this.swapiService.getPlanet(id)
