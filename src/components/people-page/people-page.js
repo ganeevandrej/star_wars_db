@@ -20,12 +20,7 @@ export class PeoplePage extends Component {
     render() {
         const { selectedPerson } = this.state;
 
-        const personList = (
-            <PersonList onClickItem={ (id) => this.updateSelectedPerson(id) }>
-                {(i) => `${i.name} ( ${i.birthYear} )`}
-            </PersonList>
-        );
-
+        const personList = <PersonList onClickItem={ (id) => this.updateSelectedPerson(id) } />;
         const personDetails = <PersonDetails itemId={ selectedPerson } />;
 
         return <Row left={ personList } right={ personDetails }  />;
