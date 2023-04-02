@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 import './item-list.css';
 
@@ -23,4 +24,10 @@ export const ItemList = ({ data, onClickItem, children: renderItem }) => {
             { renderItems(data) }
         </ul>
     );
+}
+
+ItemList.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onClickItem: PropTypes.func.isRequired,
+    children: PropTypes.func.isRequired
 }

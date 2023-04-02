@@ -8,6 +8,10 @@ import { SwapiService } from "../../services/swapi-service";
 import './random-planet.css';
 
 export class RandomPlanet extends Component {
+    static defaultProps = {
+        updateInterval: 5000
+    }
+
     state = {
         planet: {},
         loading: true,
@@ -15,7 +19,9 @@ export class RandomPlanet extends Component {
     }
 
     componentDidMount() {
-        this.interval = setInterval(this.updatePlanet, 2000);
+        const { updateInterval } = this.props;
+
+        this.interval = setInterval(this.updatePlanet, updateInterval);
     }
 
     componentWillUnmount() {
