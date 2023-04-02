@@ -6,16 +6,10 @@ import { ErrorBoundary } from "../error-boundary";
 import { ItemDetails } from "../item-details";
 import { Record } from "../record";
 
-const PlanetDetails = ({ itemId, swapiSwrvice }) => {
-    const { getPlanet, getPlanetImageUrl } = swapiSwrvice;
-
+const PlanetDetails = ( props ) => {
     return (
         <ErrorBoundary>
-            <ItemDetails
-                itemId={itemId}
-                getData={ getPlanet }
-                getImageUrl={ getPlanetImageUrl }
-            >
+            <ItemDetails { ...props }>
                 <Record label="Population" field="population" />
                 <Record label="Rotation Period" field="rotationPeriod" />
                 <Record label="Diameter" field="diameter" />
@@ -24,4 +18,11 @@ const PlanetDetails = ({ itemId, swapiSwrvice }) => {
     );
 };
 
-export default withSwapiService(PlanetDetails);
+const mapMethodsToProps = ({ getPlanet, getPlanetImageUrl }) => {
+    return {
+        getData: getPlanet,
+        getImageUrl: getPlanetImageUrl
+    }
+}
+
+export default withSwapiService(PlanetDetails, mapMethodsToProps);

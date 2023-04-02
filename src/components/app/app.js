@@ -30,7 +30,7 @@ export class App extends Component {
 
         return (
             <div>
-                <SwapiServiceProvider value={this.swapiService}>
+                <SwapiServiceProvider value={ this.swapiService }>
                     <Header/>
                     {planet}
 
@@ -47,4 +47,4 @@ export class App extends Component {
             </div>
         );
     }
-};
+}

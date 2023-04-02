@@ -6,16 +6,10 @@ import { ErrorBoundary } from "../error-boundary";
 import { ItemDetails } from "../item-details";
 import { Record } from "../record";
 
-const StarshipDetails = ({ itemId, swapiSwrvice }) => {
-    const { getStarship, getStarshipImageUrl } = swapiSwrvice;
-
+const StarshipDetails = ( props ) => {
     return (
         <ErrorBoundary>
-            <ItemDetails
-                itemId={itemId}
-                getData={ getStarship }
-                getImageUrl={ getStarshipImageUrl }
-            >
+            <ItemDetails { ...props }>
                 <Record label="Model" field="model" />
                 <Record label="Length" field="length" />
                 <Record label="Cost" field="costInCredits" />
@@ -24,4 +18,11 @@ const StarshipDetails = ({ itemId, swapiSwrvice }) => {
     );
 };
 
-export default withSwapiService(StarshipDetails);
+const mapMethodsToProps = ({ getStarship, getStarshipImageUrl }) => {
+    return {
+        getData: getStarship,
+        getImageUrl: getStarshipImageUrl
+    }
+}
+
+export default withSwapiService(StarshipDetails, mapMethodsToProps);

@@ -6,16 +6,10 @@ import { ErrorBoundary } from "../error-boundary";
 import { ItemDetails } from "../item-details";
 import { Record } from "../record";
 
-const PersonDetails = ({ itemId, swapiSwrvice }) => {
-    const { getPerson, getPersonImageUrl } = swapiSwrvice;
-
+const PersonDetails = ( props ) => {
     return (
         <ErrorBoundary>
-            <ItemDetails
-                itemId={itemId}
-                getData={ getPerson }
-                getImageUrl={ getPersonImageUrl }
-            >
+            <ItemDetails { ...props }>
                 <Record label="Gender" field="gender"/>
                 <Record label="Eye Color" field="eyeColor"/>
             </ItemDetails>
@@ -23,4 +17,11 @@ const PersonDetails = ({ itemId, swapiSwrvice }) => {
     );
 };
 
-export default withSwapiService(PersonDetails);
+const mapMethodsToProps = ({ getPerson, getPersonImageUrl }) => {
+    return {
+        getData: getPerson,
+        getImageUrl: getPersonImageUrl
+    }
+}
+
+export default withSwapiService(PersonDetails, mapMethodsToProps);
