@@ -1,28 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { PlanetDetails, PlanetList } from "../sw-components";
 
 import { Row } from "../row";
 
-export class PlanetsPage extends Component {
-    state = {
-        selectedPerson: null
-    }
+export const PlanetsPage = () => {
+    const urlParams = useParams();
+    const navigate = useNavigate();
 
-    updateSelectedPerson = (id) => {
-        this.setState({
-            selectedPerson: id
-        });
-    }
-
-    render() {
-        const { selectedPerson } = this.state;
-
-        return (
-            <Row
-                left={ <PlanetList onClickItem={ this.updateSelectedPerson } /> }
-                right={ <PlanetDetails itemId={ selectedPerson } /> }
-            />
-        );
-    }
+    return (
+        <Row
+            left={<PlanetList onClickItem={(id) => navigate(`/planets/${id}`)}/>}
+            right={<PlanetDetails itemId={urlParams.id}/>}
+        />
+    );
 }

@@ -1,28 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { StarshipDetails, StarshipList } from "../sw-components";
-
 import { Row } from "../row";
 
-export class StarshipsPage extends Component {
-    state = {
-        selectedPerson: null
-    }
+export const StarshipsPage = () => {
+    const urlParams = useParams();
+    const navigate = useNavigate();
 
-    updateSelectedPerson = (id) => {
-        this.setState({
-            selectedPerson: id
-        });
-    }
-
-    render() {
-        const { selectedPerson } = this.state;
-
-        return (
-            <Row
-                left={ <StarshipList onClickItem={ this.updateSelectedPerson } /> }
-                right={ <StarshipDetails itemId={ selectedPerson } /> }
-            />
-        );
-    }
+    return (
+        <Row
+            left={<StarshipList onClickItem={(id) => navigate(`/starships/${id}`)}/>}
+            right={<StarshipDetails itemId={urlParams.id}/>}
+        />
+    );
 }
+
+
