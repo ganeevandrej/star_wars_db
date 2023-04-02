@@ -4,14 +4,12 @@ import { PersonDetails, PersonList } from "../sw-components";
 
 import { Row } from "../row";
 
-import "./people-page.css";
-
 export class PeoplePage extends Component {
     state = {
         selectedPerson: null
     }
 
-    updateSelectedPerson(id) {
+    updateSelectedPerson = (id) => {
         this.setState({
             selectedPerson: id
         });
@@ -20,9 +18,11 @@ export class PeoplePage extends Component {
     render() {
         const { selectedPerson } = this.state;
 
-        const personList = <PersonList onClickItem={ (id) => this.updateSelectedPerson(id) } />;
-        const personDetails = <PersonDetails itemId={ selectedPerson } />;
-
-        return <Row left={ personList } right={ personDetails }  />;
+        return (
+            <Row
+                left={ <PersonList onClickItem={ this.updateSelectedPerson } /> }
+                right={ <PersonDetails itemId={ selectedPerson } /> }
+            />
+        );
     }
 }

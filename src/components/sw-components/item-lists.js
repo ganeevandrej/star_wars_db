@@ -1,16 +1,6 @@
-import { withData, withSwapiService } from "../hok-helper";
+import { compose, withChildFunction, withData, withSwapiService } from "../hok-helper";
 
 import { ItemList } from "../item-list";
-
-const withChildFunction = (Wrapped, fn) => {
-    return (props) => {
-        return (
-            <Wrapped { ...props }>
-                { fn }
-            </Wrapped>
-        );
-    }
-}
 
 const mapPeopleMethodsToProps = ({ getAllPeople }) => {
     return {
@@ -31,21 +21,20 @@ const mapStarshipsMethodsToProps = ({ getAllStarships }) => {
 const renderName = ({ name }) => <span>{ name }</span>;
 const renderModelAndName = ({ name, model }) => <span>{name}, ( { model } )</span>;
 
-export const PersonList = withSwapiService(
-    withData(
-        withChildFunction(ItemList, renderName)
-    ),
-    mapPeopleMethodsToProps
-);
-export const PlanetList = withSwapiService(
-    withData(
-        withChildFunction(ItemList, renderName)
-    ),
-    mapPlanetsMethodsToProps
-);
-export const StarshipList = withSwapiService(
-    withData(
-        withChildFunction(ItemList, renderModelAndName)
-    ),
-    mapStarshipsMethodsToProps
-);
+export const PersonList = compose(
+    withSwapiService(mapPeopleMethodsToProps),
+    withData,
+    withChildFunction(renderName)
+)(ItemList);
+
+export const PlanetList = compose(
+    withSwapiService(mapPlanetsMethodsToProps),
+    withData,
+    withChildFunction(renderName)
+)(ItemList);
+
+export const StarshipList = compose(
+    withSwapiService(mapStarshipsMethodsToProps),
+    withData,
+    withChildFunction(renderModelAndName)
+)(ItemList);
