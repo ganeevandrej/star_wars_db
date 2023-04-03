@@ -10,8 +10,8 @@ const PersonDetails = ( props ) => {
     return (
         <ErrorBoundary>
             <ItemDetails { ...props }>
-                <Record label="Gender" field="gender"/>
-                <Record label="Eye Color" field="eyeColor"/>
+                <Record label="Gender" field="gender" />
+                <Record label="Eye Color" field="eyeColor" />
             </ItemDetails>
         </ErrorBoundary>
     );

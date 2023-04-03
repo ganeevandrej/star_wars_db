@@ -1,1 +1,1 @@
-export { RandomPlanet } from "./random-planet";
+export { default } from "./random-planet";
