@@ -3,8 +3,9 @@ import React from "react";
 import { withSwapiService } from "../hok-helper";
 
 import { ErrorBoundary } from "../error-boundary";
-import { ItemDetails } from "../item-details";
+
 import { Record } from "../record";
+import ItemDetails from "../item-details";
 
 const PersonDetails = ( props ) => {
     return (

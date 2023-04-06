@@ -3,7 +3,7 @@ import React from "react";
 import { withSwapiService } from "../hok-helper";
 
 import { ErrorBoundary } from "../error-boundary";
-import { ItemDetails } from "../item-details";
+import ItemDetails from "../item-details";
 import { Record } from "../record";
 
 const StarshipDetails = ( props ) => {
