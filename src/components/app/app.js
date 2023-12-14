@@ -8,6 +8,7 @@ import { Header } from '../header';
 import RandomPlanet from "../random-planet";
 
 import { SwapiService } from "../../services/swapi-service";
+import { SwapiServiceProvider } from "../swapi-service-context";git
 import { DummySwapiService } from "../../services/dummy-swapi-service";
 import './app.css';
 
