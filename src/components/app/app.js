@@ -12,6 +12,7 @@ import { SwapiServiceProvider } from "../swapi-service-context";
 import { DummySwapiService } from "../../services/dummy-swapi-service";
 import './app.css';
 
+
 const PeoplePage = lazy(() => import("../pages/people-page"));
 const PlanetsPage = lazy(() => import("../pages/planets-page"));
 const StarshipsPage = lazy(() => import("../pages/starships-page"));
