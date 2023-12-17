@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
 export const withChildFunction = (fn) => (Wrapped) => {
-    return (props) => {
-        return (
-            <Wrapped { ...props }>
-                { fn }
-            </Wrapped>
-        );
-    }
-}
+  return function func(props) {
+    return (
+      <Wrapped { ...props }>
+        { fn }
+      </Wrapped>
+    );
+  };
+};

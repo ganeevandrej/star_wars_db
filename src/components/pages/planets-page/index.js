@@ -1,1 +1,1 @@
-export { default } from "./planets-page";
+export {default} from './planets-page';
