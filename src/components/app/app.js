@@ -36,7 +36,7 @@ export class App extends Component {
     return (
       <ErrorBoundary>
         <SwapiServiceProvider value={this.state.swapiService}>
-          <BrowserRouter>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
             <div className="app">
               <Header onServiceChange={this.onChangeService} />
 

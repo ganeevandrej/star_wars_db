@@ -1,13 +1,13 @@
 import React from 'react';
 
-export const ItemView = ({name, itemUrl, children}) => {
+export const ItemView = ({item, itemUrl, children}) => {
   return (
     <>
       <img className="person-image"
-        src={itemUrl} alt={ name } />
+        src={itemUrl} alt={ item.name } />
 
       <div className="card-body">
-        <h4>{ name }</h4>
+        <h4>{ item.name }</h4>
         <ul className="list-group list-group-flush">
           { children }
         </ul>

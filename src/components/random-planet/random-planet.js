@@ -10,35 +10,61 @@ import './random-planet.css';
 class RandomPlanet extends Component {
   static defaultProps = {
     updateInterval: 5000,
+    planetIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   };
 
   state = {
     planet: null,
+    planetImageUrl: null,
     loading: false,
     error: false,
   };
 
   componentDidMount() {
-    const {updateInterval} = this.props;
+    this.updatePlanet();
+    this.startInterval();
+  }
 
-    this.setState({
-      loading: true,
-      error: false,
-    });
+  componentDidUpdate(prevProps) {
+    const serviceChanged = prevProps.getData !== this.props.getData ||
+      prevProps.getImageUrl !== this.props.getImageUrl;
+    const intervalChanged =
+      prevProps.updateInterval !== this.props.updateInterval;
 
-    this.interval = setInterval(this.updatePlanet, updateInterval);
+    if (serviceChanged) {
+      this.updatePlanet();
+    }
+
+    if (serviceChanged || intervalChanged) {
+      this.startInterval();
+    }
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
-  updatePlanet = () => {
-    const id = Math.ceil(Math.random() * 18) + 1;
+  startInterval = () => {
+    const {updateInterval} = this.props;
 
-    this.props.getData(id)
+    clearInterval(this.interval);
+    this.interval = setInterval(this.updatePlanet, updateInterval);
+  };
+
+  updatePlanet = () => {
+    const {planetIds, getData, getImageUrl} = this.props;
+    const randomIndex = Math.floor(Math.random() * planetIds.length);
+    const id = planetIds[randomIndex];
+
+    this.setState({
+      loading: true,
+      error: false,
+    });
+
+    getData(id)
         .then((planet) => this.setState({
           planet,
+          planetImageUrl: getImageUrl(planet),
           loading: false,
           error: false,
         }))
@@ -49,9 +75,11 @@ class RandomPlanet extends Component {
   };
 
   render() {
-    const {planet, loading, error} = this.state;
+    const {planet, planetImageUrl, loading, error} = this.state;
 
-    const isPlanet = planet ? <PlanetView planet={ planet } /> : null;
+    const isPlanet = planet ?
+      <PlanetView planet={ planet } planetImageUrl={ planetImageUrl } /> :
+      null;
     const isLoading = loading ? <Spinner /> : isPlanet;
     const content = error ? <ErrorIndicator /> : isLoading;
 
@@ -63,10 +91,11 @@ class RandomPlanet extends Component {
   }
 }
 
-const mapStarshipsMethodsToProps = ({getPlanet}) => {
+const mapPlanetMethodsToProps = ({getPlanet, getPlanetImageUrl}) => {
   return {
     getData: getPlanet,
+    getImageUrl: getPlanetImageUrl,
   };
 };
 
-export default withSwapiService(mapStarshipsMethodsToProps)(RandomPlanet);
+export default withSwapiService(mapPlanetMethodsToProps)(RandomPlanet);

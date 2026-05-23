@@ -22,7 +22,7 @@ const mapStarshipsMethodsToProps = ({getAllStarships}) => {
 
 const renderName = ({name}) => <span>{ name }</span>;
 const renderModelAndName = ({name, model}) => {
-  <span>{name}, ( { model } )</span>;
+  return <span>{name}, ( { model } )</span>;
 };
 
 export const PersonList = compose(

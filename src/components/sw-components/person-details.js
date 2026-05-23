@@ -11,6 +11,7 @@ const PersonDetails = ( props ) => {
     <ErrorBoundary>
       <ItemDetails { ...props }>
         <Record label="Gender" field="gender" />
+        <Record label="Birth Year" field="birthYear" />
         <Record label="Eye Color" field="eyeColor" />
       </ItemDetails>
     </ErrorBoundary>

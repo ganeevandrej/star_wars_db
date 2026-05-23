@@ -1,12 +1,12 @@
 import React from 'react';
 
-export const PlanetView = ({planet}) => {
+export const PlanetView = ({planet, planetImageUrl}) => {
   const {id, name, population, rotationPeriod, diameter} = planet;
 
   return (
     <>
       <img className="planet-image"
-        src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt="" />
+        src={planetImageUrl} alt={name || `planet-${id}`} />
       <div>
         <h4>{ name }</h4>
         <ul className="list-group list-group-flush">
