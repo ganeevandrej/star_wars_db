@@ -18,7 +18,7 @@ module.exports = {
   ],
   'rules': {
     'require-jsdoc': 0,
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': 'off',
     'react/prop-types': 'off',
   },
 };
