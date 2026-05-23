@@ -12,7 +12,7 @@ Star Wars DB учебный React-проект по вселенной Star Wars
 
 ## Preview
 
-![Todo List UI preview](./public/assets/preview.png)
+![star_wars_db UI preview](./public/assets/preview.png)
 
 ## Стек
 
